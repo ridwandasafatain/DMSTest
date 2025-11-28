@@ -1,0 +1,36 @@
+﻿@inherits MainLayoutBase
+
+<RadzenDialog />
+<RadzenNotification />
+<RadzenContextMenu />
+<RadzenTooltip />
+
+<RadzenLayout>
+    <RadzenHeader>
+        <ChildContent>
+            <RadzenRow AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Start" Gap="2px">
+                <RadzenColumn Size="5">
+                    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center">                        
+                        <span style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-top:13px; margin-left:5px">DMS TEST</span>
+                    </RadzenStack>
+                </RadzenColumn>                
+            </RadzenRow>
+        </ChildContent>
+    </RadzenHeader>
+    <RadzenBody @ref="@radzenBody">
+        <ChildContent>
+            <RadzenContentContainer Name="main">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">                            
+                            @Body
+                        </div>                        
+                    </div>
+                </div>
+            </RadzenContentContainer>
+        </ChildContent>
+    </RadzenBody>
+</RadzenLayout>
+
+
+

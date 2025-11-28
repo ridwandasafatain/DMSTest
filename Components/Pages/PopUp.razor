@@ -1,0 +1,253 @@
+﻿@using DMSTest.Model
+@inherits PopUpBase
+
+<RadzenTemplateForm TItem="GeneralInformation" Data="@generalInformation" Submit="@Submit">
+	<RadzenTabs TabPosition="TabPosition.Top">
+		<Tabs>
+			<RadzenTabsItem Text="General Information">
+				<div class="form-group row mt-1">
+					<label for="Nama" class="col-sm-2">Nama</label>
+					<div class="col-sm-10">
+						<RadzenTextBox Name="Nama" @bind-Value="generalInformation.Nama" MaxLength="200" Disabled="IsView"/>
+						<RadzenRequiredValidator Component="Nama" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="TempatLahir" class="col-sm-2">Tempat Lahir</label>
+					<div class="col-sm-10">
+						<RadzenTextBox Name="TempatLahir" @bind-Value="generalInformation.TempatLahir" MaxLength="200"/>
+						<RadzenRequiredValidator Component="TempatLahir" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="TanggalLahir" class="col-sm-2">Tanggal Lahir</label>
+					<div class="col-sm-10">
+						<RadzenDatePicker @bind-Value=@generalInformation.TanggalLahir Name="TanggalLahir" DateFormat="dd MMM yyyy" Change="TanggalLahirChange" />
+						<RadzenRequiredValidator Component="TanggalLahir" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="JenisKelamin" class="col-sm-2">Jenis Kelamin</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="JenisKelamin" Data="@data.JenisKelaminList()" @bind-Value="generalInformation.JenisKelamin" TextProperty="Item" ValueProperty="Item" />
+						<RadzenRequiredValidator Component="JenisKelamin" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="KodePos" class="col-sm-2">Kode Pos</label>
+					<div class="col-sm-10">
+						<RadzenTextBox Name="KodePos" @bind-Value="generalInformation.KodePos" MaxLength="30" />
+						<RadzenRequiredValidator Component="KodePos" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="Alamat" class="col-sm-2">Alamat</label>
+					<div class="col-sm-10">
+						<RadzenTextArea Name="Alamat" @bind-Value="generalInformation.Alamat" Cols="3" MaxLength="400" />
+						<RadzenRequiredValidator Component="Alamat" Text="Wajib Diisi." />
+					</div>
+				</div>
+			</RadzenTabsItem>
+
+			<RadzenTabsItem Text="Information 1">
+				<div class="form-group row mt-1">
+					<label for="UmurID" class="col-sm-2">Umur</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="UmurID" Data="@data.UmurPemohonList()" @bind-Value="generalInformation.UmurID" TextProperty="Item" ValueProperty="ID" Disabled/>
+						<RadzenRequiredValidator Component="UmurID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="UmurID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="UmurTenorID" class="col-sm-2">Umur Pemohon + Tenor</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="UmurTenorID" Data="@data.UmurPlusTenorList()" @bind-Value="generalInformation.UmurPlusTenorID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="UmurTenorID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="UmurTenorID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="StatusPerkawinanID" class="col-sm-2">Status Perkawinan</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="StatusPerkawinanID" Data="@data.StatusPerkawinanList()" @bind-Value="generalInformation.StatusPerkawinanID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="StatusPerkawinanID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="StatusPerkawinanID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="PendidikanID" class="col-sm-2">Pendidikan</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="PendidikanID" Data="@data.PendidikanList()" @bind-Value="generalInformation.PendidikanID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="PendidikanID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="PendidikanID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+			</RadzenTabsItem>
+
+			<RadzenTabsItem Text="Information 2">
+				<div class="form-group row mt-1">
+					<label for="AlamatID" class="col-sm-2">Alamat Tempat Tinggal</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="AlamatID" Data="@data.AlamatList()" @bind-Value="generalInformation.AlamatID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="AlamatID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="AlamatID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="KepemilikanAlamatID" class="col-sm-2">Kepemilikan Tempat Tinggal</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="KepemilikanAlamatID" Data="@data.KepemilikanAlamatList()" @bind-Value="generalInformation.KepemilikanAlamatID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="KepemilikanAlamatID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="KepemilikanAlamatID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="LamaMenempatiAlamatID" class="col-sm-2">Lama Menempati</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="LamaMenempatiAlamatID" Data="@data.LamaMenempatiAlamatList()" @bind-Value="generalInformation.LamaMenempatiAlamatID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="LamaMenempatiAlamatID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="LamaMenempatiAlamatID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>				
+			</RadzenTabsItem>
+
+			<RadzenTabsItem Text="Information 3">
+				<div class="form-group row mt-1">
+					<label for="KategoriPerusahaanID" class="col-sm-2">Kategori Perusahaan</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="KategoriPerusahaanID" Data="@data.KategoriPerusahaanList()" @bind-Value="generalInformation.KategoriPerusahaanID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="KategoriPerusahaanID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="KategoriPerusahaanID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="JabatanID" class="col-sm-2">Jabatan</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="JabatanID" Data="@data.JabatanList()" @bind-Value="generalInformation.JabatanID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="JabatanID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="JabatanID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="LamaBekerjaID" class="col-sm-2">Lama Bekerja</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="LamaBekerjaID" Data="@data.LamaBekerjaList()" @bind-Value="generalInformation.LamaBekerjaID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="LamaBekerjaID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="LamaBekerjaID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="PendapatanID" class="col-sm-2">Pendapatan THP</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="PendapatanID" Data="@data.PendapatanList()" @bind-Value="generalInformation.PendapatanID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="PendapatanID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="PendapatanID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+			</RadzenTabsItem>
+
+			<RadzenTabsItem Text="Information 4">
+				<div class="form-group row mt-1">
+					<label for="RekeningID" class="col-sm-2">Rekening</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="RekeningID" Data="@data.RekeningList()" @bind-Value="generalInformation.RekeningID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="RekeningID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="RekeningID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="AverageSaldoID" class="col-sm-2">Rata-rata saldo per bulannya</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="AverageSaldoID" Data="@data.AverageSaldoList()" @bind-Value="generalInformation.AverageSaldoID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="AverageSaldoID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="AverageSaldoID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="TrackRecordAngsuranID" class="col-sm-2">Track record pembayaran angsuran</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="TrackRecordAngsuranID" Data="@data.TrackRecordAngsuranList()" @bind-Value="generalInformation.TrackRecordAngsuranID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="TrackRecordAngsuranID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="TrackRecordAngsuranID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="TrackSLIKID" class="col-sm-2">Track Data SLIK</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="TrackSLIKID" Data="@data.TrackSLIKList()" @bind-Value="generalInformation.TrackSLIKID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="TrackSLIKID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="TrackSLIKID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="KartuKreditID" class="col-sm-2">Kepemilikan Kartu Kredit</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="KartuKreditID" Data="@data.KartuKreditList()" @bind-Value="generalInformation.KartuKreditID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="KartuKreditID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="KartuKreditID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+			</RadzenTabsItem>
+
+			<RadzenTabsItem Text="Information 5">
+				<div class="form-group row mt-1">
+					<label for="TenorID" class="col-sm-2">Tenor</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="TenorID" Data="@data.TenorList()" @bind-Value="generalInformation.TenorID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="TenorID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="TenorID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="DebtServiceRatioID" class="col-sm-2">Debt Service Ratio</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="DebtServiceRatioID" Data="@data.DebtServiceRatioList()" @bind-Value="generalInformation.DebtServiceRatioID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="DebtServiceRatioID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="DebtServiceRatioID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>				
+			</RadzenTabsItem>
+
+			<RadzenTabsItem Text="Information 6">
+				<div class="form-group row mt-1">
+					<label for="HasilAppraisalID" class="col-sm-2">Hasil Appraisal</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="HasilAppraisalID" Data="@data.HasilAppraisalList()" @bind-Value="generalInformation.HasilAppraisalID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="HasilAppraisalID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="HasilAppraisalID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="LuasBangunanID" class="col-sm-2">Luas Bangunan</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="LuasBangunanID" Data="@data.LuasBangunanList()" @bind-Value="generalInformation.LuasBangunanID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="LuasBangunanID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="LuasBangunanID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="TujuanPembiayaanID" class="col-sm-2">Tujuan dari Pembiayaan</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="TujuanPembiayaanID" Data="@data.TujuanPembiayaanList()" @bind-Value="generalInformation.TujuanPembiayaanID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="TujuanPembiayaanID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="TujuanPembiayaanID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>
+				<div class="form-group row mt-1">
+					<label for="LTVID" class="col-sm-2">LTV</label>
+					<div class="col-sm-10">
+						<RadzenDropDown Name="LTVID" Data="@data.LTVList()" @bind-Value="generalInformation.LTVID" TextProperty="Item" ValueProperty="ID" />
+						<RadzenRequiredValidator Component="LTVID" Text="Wajib Diisi." />
+						<RadzenCompareValidator Component="LTVID" Operator="CompareOperator.NotEqual" Value="0" Text="Wajib Diisi." />
+					</div>
+				</div>				
+			</RadzenTabsItem>
+		</Tabs>
+	</RadzenTabs>
+
+	<div class="form-group row mt-3">
+		<div class="col-sm-10">
+			<RadzenButton class="ms-3" Text="Save" Icon="save" ButtonType="ButtonType.Submit" />
+		</div>
+	</div>
+</RadzenTemplateForm>
